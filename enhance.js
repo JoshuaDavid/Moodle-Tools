@@ -13,7 +13,7 @@ function initialize() {
 }
 function includeJQuery() {
     var jq = document.createElement("script");
-    jq.src = "http://code.jquery.com/jquery-1.10.0.min.js";
+    jq.src = "http://code.jquery.com/jquery.min.js";
     var head = document.getElementsByTagName("head")[0];
     head.appendChild(jq);
     jq.addEventListener("load", initialize);
