@@ -71,42 +71,132 @@ function testLinks(courseID) {
             $.get(fakeUrl).done(function(response) {
                 var $realLink = $(response).find(".urlworkaround a");
                 realUrl = $realLink.attr("href");
-                $(".linkTester .totallinks output").html(total);
-                var $tester = $("<script/>");
-                var testersrc = "http://localhost/js/Moodle/checkLink.php?";
-                testersrc += "url=" + realUrl;
-                if(username && password) {
-                    testersrc += "&username=" + username;
-                    testersrc += "&password=" + password;
-                }
-                $tester.attr("src", testersrc);
-                $("head")[0].appendChild($tester[0]);
-                $tester.on("load", function() {
-                    var info = http_info[realUrl];
-                    var http_code = info["http_code"];
-                    if(http_code < 400) {
-                        live += 1;
-                        $(".linkTester .livelinks output").html(live);
-                        $(".linkTester .livelinks ol")
-                            .append($("<li>").html(realUrl));
+                var linkState = getLinkState(realUrl);
+                $.when(linkState).then(function(state) {
+                    if(state) {
+                        var $link = $("<a/>");
+                        $link.attr("href", state["url"]);
+                        $link.html(state["url"]);
+                        $link.wrap("<li/>");
+                        $(".linkTester .livelinks").append($link.parent());
                     }
                     else {
-                        if(realUrl.match(/http:\/\/www./g)) {
-                        dead += 1;
-                        $(".linkTester .deadlinks output").html(dead);
-                        $(".linkTester .deadlinks ol")
-                            .append($("<li/>").html(realUrl));
-                        }
-                        else $tester.src.replace(/http:\/\/./g, "http://www.");
+                        var $link = $("<a/>");
+                        $link.attr("href", state["url"]);
+                        $link.html(state["url"]);
+                        $link.wrap("<li/>");
+                        $(".linkTester .deadlinks").append($link.parent());
                     }
-                    tested += 1;
-                    $(".linkTester progress").show().val(tested);
-                })
-                $tester.on("error", function(evt) {
-                    console.log(evt);
                 });
             });
         });
     })
 }
 createTester();
+function getLinkState(url) {
+    var deferred = new $.Deferred();
+    var promise = deferred.promise();
+    function resolve(info) {
+        if(info["http_code"] && info["http_code"] < 400) {
+            deferred.resolve(info);
+        }
+        else {
+            if(url != info["url"]) {
+                // A redirect has occurred
+                console.log("redirect: ", url, "=>", info["url"]);
+                deferred.notify({
+                    "type": "redirect",
+                    "old_location": url,
+                    "new_location": info["url"]
+                });
+                url = info["url"];
+                test();
+            }
+            else {
+                info.valueOf = function() {
+                    // Means that if(info) else will cause the else
+                    // block to be executed.
+                    return false;
+                }
+                deferred.resolve(false);
+            }
+        }
+    }
+    function reject() {
+        deferred.reject();
+    }
+    function test() {
+        $.when(headRequest(url)).then(resolve).fail(reject);
+    }
+    test();
+    return promise;
+}
+function headRequest(url) {
+    var deferred = new $.Deferred();
+    var promise = deferred.promise();
+    var username = getUsername();
+    var password = getPassword();
+    function resolve(url, username, password) {
+        var $tester = $("<script/>");
+        var src = "http://localhost/js/Moodle/checkLink.php?";
+        src += "url=" + encodeURIComponent(url);
+        if(username && password) {
+            src += "&username=" + encodeURIComponent(username);
+            src += "&password=" + encodeURIComponent(password);
+        }
+        $tester.attr("src", src);
+        $("head").append($tester);
+        // Set a time limit of 5 seconds on the loading of the script.
+        setTimeout(resolveIfComplete, 5000);
+    }
+    function resolveIfComplete() {
+        var info = http_info[url];
+        if(http_info[url]) deferred.resolve(info);
+        else deferred.reject();
+    }
+    function reject() {
+        deferred.reject();
+    }
+    $.when(url, username, password).then(resolve).fail(reject);
+    return promise;
+}
+function getUsername() {
+    var deferred = new $.Deferred();
+    var promise = deferred.promise();
+    function resolve() {
+        var $usernameInput = $(".linkTester .username input");
+        var username = $usernameInput.val();
+        deferred.resolve(username);
+    }
+    function reject() {
+        deferred.reject();
+    }
+    $.when(arguments).then(resolve).fail(reject);
+    return promise;
+}
+function getPassword() {
+    var deferred = new $.Deferred();
+    var promise = deferred.promise();
+    function resolve() {
+        var $passwordInput = $(".linkTester .password input");
+        var password = $passwordInput.val();
+        deferred.resolve(password);
+    }
+    function reject() {
+        deferred.reject();
+    }
+    $.when(arguments).then(resolve).fail(reject);
+    return promise;
+}
+function promisePrototype() {
+    var deferred = new $.Deferred();
+    var promise = deferred.promise();
+    function resolve() {
+        deferred.resolve();
+    }
+    function reject() {
+        deferred.reject();
+    }
+    $.when(arguments).then(resolve).fail(reject);
+    return promise;
+}
