@@ -9,7 +9,7 @@ function initialize() {
     var $tools = $("<div/>").addClass("tools");
     var $content = $("<div/>").addClass("course-content");
     $(".generalbox .no-overflow").append($tools).append($content);
-    test();
+    build()
 }
 function includeJQuery() {
     var jq = document.createElement("script");
@@ -41,10 +41,11 @@ function editLabel($label) {
 function highlightLinkIfDead($link) {
     console.log($link);
 }
-function test() {
+function build() {
     $(document).promise()
         .then(function() {
-            return include("deferTest"); 
+            include("buildInterface");
+            include("deferTest"); 
         }).then(function() {
             console.log("hi");
         })
