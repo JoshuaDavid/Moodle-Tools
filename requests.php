@@ -6,11 +6,13 @@ $devemail = "joshua.david.723@my.csun.edu";
 $subject = "Moodle Feature Request from $name";
 $message = $request;
 $problem = 0;
+if($name and $request) {
 if(mail($devemail, $subject, $message)) {
     echo "<h1>Request Successfully Made</h1>";
 } else {
     $problem = 1;
     echo "Sorry, there was a problem.";
+}
 }
 
 ?>
