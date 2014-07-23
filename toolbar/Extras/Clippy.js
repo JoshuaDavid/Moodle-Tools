@@ -1,4 +1,5 @@
 // Require: jquery.min.js
+// Require: Options/main.js
 
 $('<link rel="stylesheet" href="//www.csun.edu/exlinfo/js/clippy/build/clippy.css" />')
     .appendTo('head');
@@ -40,4 +41,6 @@ function clippify() {
     }
 }
 
-clippify();
+if(Options.get("useClippy") == true) {
+    clippify();
+}
