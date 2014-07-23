@@ -12,7 +12,7 @@ function show_editing_icons() {
         var $option_ctr = $('<div class="menu-options"/>');
         $option_ctr.append($options);
         $activity.append($option_ctr);
-        $('ul.menubar').hide();
+        $activity.find('ul.menubar').hide();
     });
 }
 
