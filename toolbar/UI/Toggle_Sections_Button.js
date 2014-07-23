@@ -1,7 +1,7 @@
-// Require: ./jquery.min.js
-// Require: ./UI/FunctionButton.js
-// Require: ./UI/ToggleButton.js
-// Require: ./UI/TopMenu.js
+// Require: jquery.min.js
+// Require: UI/FunctionButton.js
+// Require: UI/ToggleButton.js
+// Require: UI/TopMenu.js
 
 if(window.location.pathname.match(/\/course\/view\.php/)) {
     var csb = new FunctionButton("Collapse Sections", collapse_sections);

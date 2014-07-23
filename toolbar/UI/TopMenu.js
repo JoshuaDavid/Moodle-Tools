@@ -1,4 +1,4 @@
-// Require: ./jquery.min.js
+// Require: jquery.min.js
 
 TopMenu = function() {
     var tm = this;
@@ -12,18 +12,22 @@ TopMenu = function() {
         'height': '2em',
         'border-bottom': '1px solid black'
     });
-    if(tm.components.length) $(tm.el).show(500);
-    else $(tm.el).hide(500);
+    if(tm.components.length) $(tm.el).show();
+    else $(tm.el).hide();
     return tm;
 }
 
 TopMenu.prototype.add = function(cpt) {
     var tm = this;
     tm.components.push(cpt);
-    $(tm.el).append(cpt.el);
+    if(cpt.el) {
+        $(tm.el).append(cpt.el);
+    } else {
+        $(tm.el).append(cpt);
+    }
     cpt.parent = tm;
-    if(tm.components.length) $(tm.el).show(500);
-    else $(tm.el).hide(500);
+    if(tm.components.length) $(tm.el).show();
+    else $(tm.el).hide();
     return tm;
 }
 

@@ -1,9 +1,15 @@
-// Require: ./jquery.min.js
+// Require: jquery.min.js
 
 // Takes two function buttons and toggles between them
 // The first one is shown by default
-ToggleButton = function(fb1, fb2) {
+ToggleButton = function(fb1, fb2, visFn, opts) {
     var tb = this;
+    if(visFn === undefined) {
+        visFn = function() { return true; };
+    }
+    if(opts === undefined) {
+        opts = {};
+    }
     var $holder = $('<div/>');
     $holder.css({
         'display': 'inline-block',

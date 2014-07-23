@@ -1,4 +1,4 @@
-// Require: ./jquery.min.js
+// Require: jquery.min.js
 
 ContextMenu = function(x, y, options) {
     var cm = this;
@@ -11,7 +11,7 @@ ContextMenu = function(x, y, options) {
         "border": "1px solid black",
     });
     for(var i = 0, option; option = options[i]; i++) {
-        $opt = $('<div/>');
+        var $opt = $('<div/>');
         $opt.css({
             "background": "white",
             "border-bottom": "1px solid gray",
@@ -19,6 +19,16 @@ ContextMenu = function(x, y, options) {
         $opt.html(option.title);
         $opt.click(option.fn);
         $opt.click($ctxmenu.remove());
+        $opt.on('mouseover', function(e) {
+            // To avoid this always being the last option in the loop
+            var $opt = $(e.target);
+            $opt.css("background", "lightblue");
+            $opt.on("mouseout", unhighlight);
+            function unhighlight() {
+                $opt.css("background", "white");
+                $opt.off("mouseout", unhighlight);
+            }
+        });
         $ctxmenu.append($opt);
     }
     setTimeout(function() {

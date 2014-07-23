@@ -1,7 +1,7 @@
-// Require: ./jquery.min.js
-// Require: ./UI/FunctionButton.js
-// Require: ./UI/ContextMenu.js
-// Require: ./UI/TopMenu.js
+// Require: jquery.min.js
+// Require: UI/FunctionButton.js
+// Require: UI/ContextMenu.js
+// Require: UI/TopMenu.js
 
 if(window.location.pathname.match(/\/grade/)) {
     var nukebutton = new FunctionButton(

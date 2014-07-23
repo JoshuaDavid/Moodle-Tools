@@ -39,7 +39,7 @@ for($i = 0; $i < sizeof($scripts); $i++) {
     $requires = array();
     foreach($lines as $line) {
         if(substr($line, 0, 12) == "// Require: ") {
-            $requires[] = substr($line, 12);
+            $requires[] = "./" . substr($line, 12);
         }
     }
     $requirements_met = true;
