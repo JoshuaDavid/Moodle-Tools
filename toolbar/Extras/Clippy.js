@@ -1,8 +1,8 @@
 // Require: jquery.min.js
 
-$('<link rel="stylesheet" href="//stapler.csun.edu/js/clippy/build/clippy.css" />')
+$('<link rel="stylesheet" href="//www.csun.edu/exlinfo/js/clippy/build/clippy.css" />')
     .appendTo('head');
-$('<script src="//stapler.csun.edu/js/clippy/build/clippy.js" />')
+$('<script src="//www.csun.edu/exlinfo/js/clippy/build/clippy.js" />')
     .appendTo('head');
 
 function clippify() {
