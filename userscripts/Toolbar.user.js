@@ -8,5 +8,5 @@
 // ==/UserScript==
 
 var script = document.createElement('script');
-script.src = "https://localhost/js/Moodle/toolbar/concatjs.php";
+script.src = "https://www.csun.edu/exlinfo/js/Moodle/toolbar/concatjs.php";
 document.head.appendChild(script);
