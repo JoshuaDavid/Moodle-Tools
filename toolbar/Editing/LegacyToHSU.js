@@ -4,7 +4,7 @@
 
 
 // Converts the legacy forums to HSU forums
-var title = "Replace Legacy Forums with HSU Forums";
+var title = "Replace Legacy Forums with New Forums";
 var action = replaceAllLegacyWithHSU;
 var visFn = isEditingHomepage;
 var options = {
@@ -18,6 +18,9 @@ function replaceOneLegacyWithHSU(id) {
         var legacySettings = $(response).find('form').serializeObject();
         var section = legacySettings['section'];
         var title = legacySettings['name'];
+        if(title.match(/News Forum/gi) || title.match(/Announcements/gi)) {
+            return;
+        }
         var courseId = getCourseId();
         $.get('/course/modedit.php?add=hsuforum&course=' + courseId + '&section=' + section)
         .then(function(response) {
