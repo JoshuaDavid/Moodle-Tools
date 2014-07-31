@@ -4,16 +4,25 @@ TopMenu = function() {
     var tm = this;
     tm.components = [];
     var $topbar = $('<div/>');
+    var $shim = $('<div/>');
     tm.el = $topbar[0];
     $topbar.hide();
-    $('body').prepend($topbar);
     $topbar.css({
         'background': '#ededee', // from moodle theme
         'height': '2em',
-        'border-bottom': '1px solid black'
+        'border-bottom': '1px solid black',
+        'border-right': '1px solid black',
+        'position': 'fixed',
+        'top': '0px',
+        'z-index': '1'
+    });
+    $shim.css({
+        'height': '2em',
     });
     if(tm.components.length) $(tm.el).show();
     else $(tm.el).hide();
+    $('body').prepend($topbar);
+    $('body').prepend($shim);
     return tm;
 }
 
