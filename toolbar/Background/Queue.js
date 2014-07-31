@@ -4,8 +4,11 @@ var queue = [];
 queue.busy = false;
 queue.next = function() {
     if(queue.length) {
+        $('body').css('cursor', 'wait');
         console.log("Next in queue");
         queue.shift()();
+    } else {
+        $('body').css('cursor', '');
     }
 }
 var oldget = $.get;
@@ -18,7 +21,7 @@ $.get = function() {
         queue.busy = true;
         oldget.apply($, args).always(function(res) {
             queue.busy = false;
-            if(queue.length) queue.shift()();
+            queue.next();
             d.resolve(res);
         });
     }
@@ -42,7 +45,7 @@ $.post = function() {
     }
     queue.push(f);
     if(!queue.busy) {
-        queue.shift()();
+        queue.next()
     }
     return p;
 }
