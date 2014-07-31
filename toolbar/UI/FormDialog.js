@@ -30,7 +30,6 @@ function FormDialog(title, form) {
             $(document).off('mousemove', onmousemove);
         }
         function onmousemove(e) {
-            console.log("moving...");
             $dialog.css({
                 "left": e.pageX - offX + "px",
                 "top": e.pageY - offY + "px"
@@ -44,18 +43,19 @@ function FormDialog(title, form) {
     $dialog_bd.html(form);
     var $dialog_ft = $('<div class="moodle-dialogue-ft yui3-widget-ft"/>');
     $close_btn = $('<button class="yui3-button closebutton" title="Close"/>');
-    $close_btn.click(function() {
+    function close() {
         $base.remove();
-    });
+    }
+    $close_btn.click(close);
     $dialog_hd.append($close_btn.wrap('<span class="yui3-widget-buttons/>'));
     $base.append($wrap);
     $wrap.append($dialog);
     $dialog.append($dialog_hd).append($dialog_bd).append($dialog_ft);
     $('body').append($base);
+    this.close = close;
+    return this;
 }
 
-tinyMCE = undefined;
-tinymce = undefined;
 /*
 $.get('/course/modedit.php?update=1218965&return=0&sr=0').then(function(res) {
     var $form = $(res).find('form');
