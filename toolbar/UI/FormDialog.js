@@ -53,6 +53,17 @@ function FormDialog(title, form) {
     $dialog.append($dialog_hd).append($dialog_bd).append($dialog_ft);
     $('body').append($base);
     this.close = close;
+    var d = $.Deferred();
+    var p = d.promise();
+    this.promise = function() {
+        return p;
+    }
+    $dialog.find('form').submit(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        d.resolve($(this).serializeObject());
+        close();
+    });
     return this;
 }
 
