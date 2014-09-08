@@ -1,3 +1,5 @@
+// Require: jquery.min.js
+
 function getCourseId() {
     var $navigationel  = $('ul[role="navigation"]');
     // The navigation goes in the following order

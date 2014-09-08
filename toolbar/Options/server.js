@@ -1,0 +1,1 @@
+SERVER = "//stapler.csun.edu";

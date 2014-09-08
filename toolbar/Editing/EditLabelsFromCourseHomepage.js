@@ -12,6 +12,8 @@ var options = {
 var labelEdBtn = new FunctionButton(title, action, visFn, options);
 TM.add(labelEdBtn);
 
+edithandlers = [];
+
 function makeLabelsEditable() {
     var HTML_FORMAT = 1;
 

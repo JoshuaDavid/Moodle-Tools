@@ -12,7 +12,11 @@ function findActivityInHtml(html, section, type, title) {
         if(type !== "label") {
             // Get rid of the "accesshide" span so the text matches
             var activity_title = $activity.find('.instancename')
-                .childTextNodes()
+                .contents()
+                .filter(function() {
+                    var TEXT_NODE_TYPE = 3;
+                    return this.nodeType == TEXT_NODE_TYPE;
+                })
                 .text();
             return (title.trim() == activity_title.trim());
         } else {

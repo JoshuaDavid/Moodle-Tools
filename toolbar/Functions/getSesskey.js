@@ -1,3 +1,5 @@
+// Require: jquery.min.js
+
 function getSesskey() {
     var $linkWithSesskey = $('a[href*="sesskey"]');
     var href = $linkWithSesskey.attr('href');
