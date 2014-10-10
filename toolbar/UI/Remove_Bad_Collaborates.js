@@ -19,11 +19,11 @@ function matches(attr, regexp) {
 function updateFormWithParam(url, param) {
     var d = $.Deferred();
     var p = d.promise();
-    $.get(url).success(function(response) {
+    $.get(url).then(function(response) {
         var $form = $(response).find('form');
         var action = '/course/modedit.php';
         var data = $form.serialize() + '&' + param;
-        $.post(action, data).success(function(response) {
+        $.post(action, data).then(function(response) {
             d.resolve(response);
         });
     }); 
