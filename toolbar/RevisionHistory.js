@@ -4,6 +4,7 @@
 // Require: UI/TopMenu.js
 // Require: UI/FunctionButton.js
 
+/*
 function makecallback(fn) {
     var name = "callback_";
     for(var i = 0; i < 16; i++) {
@@ -186,6 +187,7 @@ var visFn = isEditingHomepage;
 var options = { };
 
 var btn = new FunctionButton(title, action, visFn, options);
+*/
 /*
 TM.add(btn);
 function restoreAsNewModule(module) {
