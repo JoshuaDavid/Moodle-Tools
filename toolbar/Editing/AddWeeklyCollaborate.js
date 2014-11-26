@@ -7,7 +7,7 @@ var title = "Add Weekly Collaborate";
 var action = addWeeklyCollabs;
 var visFn = isEditingHomepage;
 var options = {
-    disableOnClick: true,
+    disableOnClick: false,
 }
 var weeklyCollabBtn = new FunctionButton(title, action, visFn, options);
 TM.add(weeklyCollabBtn);
@@ -15,7 +15,7 @@ TM.add(weeklyCollabBtn);
 function getSections() {
     var sections = [];
     $('.sectionname').each(function() {
-        var section = $(this).parentsUntil('ul.topics').last().attr('id').match(/section-(\d+)/)[1];
+        var section = $(this).parentsUntil('ul.topics, ul.weeks').last().attr('id').match(/section-(\d+)/)[1];
         var name = $(this).text();
         sections.push({section:section, name:name});
     });
@@ -54,32 +54,59 @@ function makeSectionFormItem() {
     return $outer;
 }
 
-function addWeeklyCollabs() {
+// Takes the "Create New Collaborate Session" page (as a jquery object)
+// and, optionally, some session settings. Returns a form (again as a jquery
+// object) which gives the appropriate options.
+function createCollabForm($form, settings) {
+    var $description = $('<div>' +
+            'Add a Weekly Collaborate Session to a Course:<br/>' +
+            'Enter the details of the first session below.<br/>' +
+            'SECTION is replaced with the section name<br/>' +
+            'DATE is replaced with the date<br/>' +
+            '<b>Session for SECTION (DATE)</b> would become ' +
+            '<b>Session for Topic 1 (Tuesday, September 2, 2:15pm)</b>' +
+            ' (or whatever the correct date is) automatically -- you don\'t have to' +
+            ' enter the dates or section names yourself in the title.' +
+            '</div>');
+    $form.prepend($description);
+    $form.find('input[name="section"]').remove();
+    var $sectionselect = makeSectionFormItem();
+    var $numweeks = makeNumberFormItem("Number_of_Sessions");
+    $form.find("#id_general .fcontainer").append($sectionselect);
+    $form.find("#id_general .fcontainer").append($numweeks);
+    $form.find('.collapsible-actions').remove();
+    $form.find('.collapsed').click(function() {
+        $(this).toggleClass('collapsed');
+    });
+    $form.find('#id_submitbutton2').remove();
+    $form.find('#id_submitbutton').val('Continue');
+
+    for(var key in settings) {
+        $form.find('[name="' + key + '"]').val(settings[key]);
+    }
+    return $form;
+}
+
+function addWeeklyCollabs(settings) {
     var sections = getSections();
+    if(settings === undefined) settings = {};
     var addFormUrl = '/course/modedit.php?';
     addFormUrl += 'add=elluminate';
     addFormUrl += '&course=' + getCourseId();
     addFormUrl += '&section=0';
     var sessionsToCreate = [];
+    var modlinks = [];
     $.get(addFormUrl).then(function(response) {
         var $form = $(response).find('form').eq(0);
-        $form.find('.collapsed').click(function() {
-            $(this).toggleClass('collapsed');
-        });
         $form.find('.hidden').removeClass('hidden');
+        $form = createCollabForm($form, settings);
         var fd = new FormDialog("Add Weekly Collaborate", $form);
-        $form.prepend('<div>' +
-            'Add a Weekly Collaborate Session to a Course:<br/>' +
-            'Enter the details of the first session below.<br/>' +
-            'SECTION is replaced with the section name<br/>' +
-            'DATE is replaced with the date<br/>' +
-            '</div>');
-        $form.find('input[name="section"]').remove();
-        var $sectionselect = makeSectionFormItem();
-        var $numweeks = makeNumberFormItem("Number_of_Sessions");
-        $form.find("#id_general .fcontainer").append($sectionselect);
-        $form.find("#id_general .fcontainer").append($numweeks);
-        $form.find('.collapsible-actions').remove();
+        $form.find("#id_name").val("Session for SECTION (DATE)");
+        $form.find('#id_cancel').click(function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            fd.close();
+        });
         return fd.promise();
     }).then(function(settings) {
         function mkmsg(section, date) {
@@ -106,23 +133,24 @@ function addWeeklyCollabs() {
         var end_date = new Date(end_year + '-' + end_month + '-' + end_day + ' '
             + end_hour + ':' + end_minute);
 
-        var i = 0;
-        while(i < sections.length && sections[i].section != settings.section) {
-            console.log(i, sections[i], sections[i].section, settings.section);
-            i++;
+        var startSection = 0;
+        // Scan through the sections to find the correct one.
+        while(startSection < sections.length 
+                && sections[startSection].section != settings.section) {
+            startSection++;
         }
         var $message = $('<form>');
-        for(var j = 0; j < settings.Number_of_Sessions; j++) {
-            var section = sections[i + j];
+        for(var offset = 0; offset < settings.Number_of_Sessions; offset++) {
+            var section = sections[startSection + offset];
             var newsettings = $.extend({}, settings);
-            var sess_start_date = start_date.clone().addWeeks(j);
+            var sess_start_date = start_date.clone().addWeeks(offset);
             newsettings['timestart[year]']   = sess_start_date.toString('yyyy')
             newsettings['timestart[month]']  = sess_start_date.toString('M')
             newsettings['timestart[day]']    = sess_start_date.toString('d')
             newsettings['timestart[hour]']   = sess_start_date.toString('H')
             newsettings['timestart[minute]'] = sess_start_date.toString('m')
 
-            var sess_end_date = end_date.clone().addWeeks(j);
+            var sess_end_date = end_date.clone().addWeeks(offset);
             newsettings['timeend[year]']   = sess_end_date.toString('yyyy')
             newsettings['timeend[month]']  = sess_end_date.toString('M')
             newsettings['timeend[day]']    = sess_end_date.toString('d')
@@ -137,15 +165,82 @@ function addWeeklyCollabs() {
             sessionsToCreate.push(newsettings);
             $message.append('<div>' + mkmsg(section, sess_start_date) + '</div>');
         }
-        $message.append('<button type="submit">Looks good.</button>');
+        var $continueBtn = $('<button type="submit">Looks good.</button>');
+        var $backBtn = $('<button type="submit">No, take me back.</button>');
+        var $cancelBtn = $('<button type="submit">Cancel</button>');
+        $backBtn.click(function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            fd.close();
+            addWeeklyCollabs(settings);
+        });
+        $cancelBtn.click(function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            fd.close();
+        });
+        $message.append([$continueBtn, $backBtn, $cancelBtn]);
         var fd = new FormDialog("Review", $message);
         return fd.promise();
     }).then(function() {
+        var d = $.Deferred();
+        var p = d.promise();
+        var $progressForm = $('<form></form>');
+        var $progressBar = $('<meter id="progess" min="0" value="0" />');
+        var $task = $('<div/>');
+        $progressBar.attr("max", sessionsToCreate.length);
+        $progressForm.append($progressBar);
+        $progressForm.append($task);
+        var fd = new FormDialog("Creating sessions...", $progressForm);
         for(var i = 0; i < sessionsToCreate.length; i++) {
             var settings = sessionsToCreate[i];
-            $.post('/course/modedit.php', settings).then(function() {
-                console.log("Success!");
-            });
+            settings['submitbutton'] = "Save and display";
+            var sessionIds = [];
+            var numDone = 0;
+            $task.html("Creating session <b>" + settings.name + "</b>.");
+            (function(i) {
+                $.post('/course/modedit.php', settings).then(function(response) {
+                    sessionIds[numDone] = $(response).find('input[name="update"]').val();
+                    numDone++;
+                    $progressBar.val(numDone);
+                    modlinks[i] = $(response).find('#elluminatelink a').attr('href');
+                    if(i + 1 < sessionsToCreate.length) {
+                        $task.html("Creating session <b>" + sessionsToCreate[i + 1].name + "</b>.");
+                    } else {
+                        $task.html("Sessions created.");
+                        d.resolve();
+                        fd.close();
+                    }
+                });
+            })(i);
         }
+        return p;
+    }).then(function() {
+        return $.get(modlinks[0]);
+    }).then(function(response) {
+        var $form = $(response).find("form");
+        var fd = new FormDialog("Add / Remove Moderators", $form);
+        $form.find('#addSubmit').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $.post('/mod/elluminate/user-edit.php', $form.serialize() + "&submitvalue=add");
+            $('select[name^="availableUsers"] option').each(function() {
+                if(this.selected) {
+                    $(this).appendTo('select[name^="currentUsers"]');
+                }
+            });
+        });
+        $form.find('#removeSubmit').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $.post('/mod/elluminate/user-edit.php', $form.serialize() + "&submitvalue=remove");
+            $('select[name^="currentUsers"] option').each(function() {
+                if(this.selected) {
+                    $(this).appendTo('select[name^="availableUsers"]');
+                }
+            });
+        });
+        $form.append('<button type="submit">Done</button>');
+        return fd.promise();
     });
 }
