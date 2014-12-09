@@ -78,6 +78,7 @@ function createCollabForm($form, settings) {
     $form.find('.collapsed').click(function() {
         $(this).toggleClass('collapsed');
     });
+    $form.find('#id_telephony_formvalue').attr('checked', null);
     $form.find('#id_submitbutton2').remove();
     $form.find('#id_submitbutton').val('Continue');
 
