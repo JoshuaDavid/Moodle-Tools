@@ -218,29 +218,86 @@ function addWeeklyCollabs(settings) {
     }).then(function() {
         return $.get(modlinks[0]);
     }).then(function(response) {
-        var $form = $(response).find("form");
+        var $form = $(response).find("form#participantForm");
+        $form.append($('<button type="submit">Done</button>'));
         var fd = new FormDialog("Add / Remove Moderators", $form);
+        var $progress = $('<div>');
+        $progress.hide();
+        function freezeUI(n) {
+            console.log("Freeze");
+            $form.find('input[type="submit"], button, select').attr('disabled', 'true');
+            $form.prepend($progress);
+            $progress.show();
+            $progress.html('0 of ' + n + ' done.');
+        }
+        function progress(m, n) {
+            $progress.html(m + ' of ' + n + ' done.');
+        }
+        function unFreezeUI() {
+            console.log("Unfreeze");
+            $form.find('input[type="submit"], button, select').attr('disabled', null);
+            $progress.hide();
+        }
         $form.find('#addSubmit').click(function(e) {
             e.preventDefault();
             e.stopPropagation();
-            $.post('/mod/elluminate/user-edit.php', $form.serialize() + "&submitvalue=add");
-            $('select[name^="availableUsers"] option').each(function() {
-                if(this.selected) {
-                    $(this).appendTo('select[name^="currentUsers"]');
-                }
-            });
+            var numDone = 0;
+            freezeUI(modlinks.length);
+            for(var i = 0; i < modlinks.length; i++) {
+                (function(i) {
+                    $form.find('select').attr('disabled', null);
+                    var data = $form.serialize();
+                    $form.find('select').attr('disabled', true);
+                    var id = modlinks[i].match(/id=(\d+)/)[1];
+                    data = data.replace(/id=\d+/, "id=" + id);
+                    data += "&submitvalue=add";
+                    $.post('/mod/elluminate/user-edit.php', data).then(function() {
+                        console.log(data);
+                        numDone += 1;
+                        progress(numDone, modlinks.length);
+                        if(numDone == modlinks.length) {
+                            $('select[name^="availableUsers"] option').each(function() {
+                                if(this.selected) {
+                                    $(this).appendTo('select[name^="currentUsers"]');
+                                }
+                            });
+                            unFreezeUI();
+                        }
+                    });
+                })(i);
+            };
         });
         $form.find('#removeSubmit').click(function(e) {
             e.preventDefault();
             e.stopPropagation();
-            $.post('/mod/elluminate/user-edit.php', $form.serialize() + "&submitvalue=remove");
-            $('select[name^="currentUsers"] option').each(function() {
-                if(this.selected) {
-                    $(this).appendTo('select[name^="availableUsers"]');
-                }
-            });
+            var numDone = 0;
+            freezeUI(modlinks.length);
+            for(var i = 0; i < modlinks.length; i++) {
+                (function(i) {
+                    $form.find('select').attr('disabled', null);
+                    var data = $form.serialize();
+                    $form.find('select').attr('disabled', true);
+                    var id = modlinks[i].match(/id=(\d+)/)[1];
+                    data = data.replace(/id=\d+/, "id=" + id);
+                    data += "&submitvalue=remove";
+                    $.post('/mod/elluminate/user-edit.php', data).then(function() {
+                        console.log(data);
+                        numDone += 1;
+                        progress(numDone, modlinks.length);
+                        if(numDone == modlinks.length) {
+                            $('select[name^="currentUsers"] option').each(function() {
+                                if(this.selected) {
+                                    $(this).appendTo('select[name^="availableUsers"]');
+                                }
+                            });
+                            unFreezeUI();
+                        }
+                    });
+                })(i);
+            };
         });
-        $form.append('<button type="submit">Done</button>');
         return fd.promise();
+    }).then(function() {
+        window.location.reload();
     });
 }
