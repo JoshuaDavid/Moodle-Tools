@@ -61,9 +61,9 @@ function createCollabForm($form, settings) {
     var $description = $('<div>' +
             'Add a Weekly Collaborate Session to a Course:<br/>' +
             'Enter the details of the first session below.<br/>' +
-            'SECTION is replaced with the section name<br/>' +
-            'DATE is replaced with the date<br/>' +
-            '<b>Session for SECTION (DATE)</b> would become ' +
+            '[[SECTION]] is replaced with the section name<br/>' +
+            '[[DATE]] is replaced with the date<br/>' +
+            '<b>Session for [[SECTION]] ([[DATE]])</b> would become ' +
             '<b>Session for Topic 1 (Tuesday, September 2, 2:15pm)</b>' +
             ' (or whatever the correct date is) automatically -- you don\'t have to' +
             ' enter the dates or section names yourself in the title.' +
@@ -102,7 +102,7 @@ function addWeeklyCollabs(settings) {
         $form.find('.hidden').removeClass('hidden');
         $form = createCollabForm($form, settings);
         var fd = new FormDialog("Add Weekly Collaborate", $form);
-        $form.find("#id_name").val("Session for SECTION (DATE)");
+        $form.find("#id_name").val("Session for [[SECTION]] ([[DATE]])");
         $form.find('#id_cancel').click(function(e) {
             e.stopPropagation();
             e.preventDefault();
@@ -110,29 +110,28 @@ function addWeeklyCollabs(settings) {
         });
         return fd.promise();
     }).then(function(settings) {
+        s = settings;
         function mkmsg(section, date) {
             return "<div>Make session with title <b>" +
-            settings.name.replace(/SECTION/g, section.name)
-                .replace(/DATE/g, date.toString("dddd, MMMM d, h:mm tt")) +
+            settings.name.replace(/\[\[SECTION\]\]/g, section.name)
+                .replace(/\[\[DATE\]\]/g, date.toString("dddd, MMMM d, h:mm tt")) +
             "</b> in section " + section.name + " on " +
             date.toString("dddd, MMMM d, h:mm tt");
         }
 
         var start_year   = settings['timestart[year]'];
-        var start_month  = settings['timestart[month]'];
+        var start_month  = parseInt(settings['timestart[month]']) - 1;
         var start_day    = settings['timestart[day]'];
         var start_hour   = settings['timestart[hour]'];
         var start_minute = settings['timestart[minute]'];
-        var start_date = new Date(start_year + '-' + start_month + '-' + start_day 
-            + ' ' + start_hour + ':' + start_minute);
+        var start_date = new Date(start_year, start_month, start_day, start_hour, start_minute, 0, 0);
 
         var end_year   = settings['timeend[year]'];
-        var end_month  = settings['timeend[month]'];
+        var end_month  = parseInt(settings['timeend[month]']) - 1;
         var end_day    = settings['timeend[day]'];
         var end_hour   = settings['timeend[hour]'];
         var end_minute = settings['timeend[minute]'];
-        var end_date = new Date(end_year + '-' + end_month + '-' + end_day + ' '
-            + end_hour + ':' + end_minute);
+        var end_date = new Date(end_year, end_month, end_day, end_hour, end_minute, 0, 0);
 
         var startSection = 0;
         // Scan through the sections to find the correct one.
@@ -161,8 +160,8 @@ function addWeeklyCollabs(settings) {
             delete newsettings.Number_of_Sessions;
             newsettings.section = section.section;
             newsettings.name = settings.name
-                .replace(/SECTION/g, section.name)
-                .replace(/DATE/g, sess_start_date.toString("dddd, MMMM d, h:mm tt"));
+                .replace(/\[\[SECTION\]\]/g, section.name)
+                .replace(/\[\[DATE\]\]/g, sess_start_date.toString("dddd, MMMM d, h:mm tt"));
             sessionsToCreate.push(newsettings);
             $message.append('<div>' + mkmsg(section, sess_start_date) + '</div>');
         }
