@@ -63,6 +63,8 @@ function createCollabForm($form, settings) {
             'Enter the details of the first session below.<br/>' +
             '[[SECTION]] is replaced with the section name<br/>' +
             '[[DATE]] is replaced with the date<br/>' +
+            '[[SESSIONNUM]] is replaced with the session number (e.g. ' + 
+            '"Week [[SESSIONNUM]] Session" becomes "Week 1 Session", "Week 2 Session", etc.)<br/>' +
             '<b>Session for [[SECTION]] ([[DATE]])</b> would become ' +
             '<b>Session for Topic 1 (Tuesday, September 2, 2:15pm)</b>' +
             ' (or whatever the correct date is) automatically -- you don\'t have to' +
@@ -102,7 +104,7 @@ function addWeeklyCollabs(settings) {
         $form.find('.hidden').removeClass('hidden');
         $form = createCollabForm($form, settings);
         var fd = new FormDialog("Add Weekly Collaborate", $form);
-        $form.find("#id_name").val("Session for [[SECTION]] ([[DATE]])");
+        $form.find("#id_name").val("Session [[SESSIONNUM]] ([[DATE]])");
         $form.find('#id_cancel').click(function(e) {
             e.stopPropagation();
             e.preventDefault();
@@ -114,6 +116,7 @@ function addWeeklyCollabs(settings) {
         function mkmsg(section, date) {
             return "<div>Make session with title <b>" +
             settings.name.replace(/\[\[SECTION\]\]/g, section.name)
+                .replace(/\[\[SESSIONNUM\]\]/g, offset + 1)
                 .replace(/\[\[DATE\]\]/g, date.toString("dddd, MMMM d, h:mm tt")) +
             "</b> in section " + section.name + " on " +
             date.toString("dddd, MMMM d, h:mm tt");
@@ -161,6 +164,7 @@ function addWeeklyCollabs(settings) {
             newsettings.section = section.section;
             newsettings.name = settings.name
                 .replace(/\[\[SECTION\]\]/g, section.name)
+                .replace(/\[\[SESSIONNUM\]\]/g, offset + 1)
                 .replace(/\[\[DATE\]\]/g, sess_start_date.toString("dddd, MMMM d, h:mm tt"));
             sessionsToCreate.push(newsettings);
             $message.append('<div>' + mkmsg(section, sess_start_date) + '</div>');
