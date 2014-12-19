@@ -12,8 +12,10 @@ var $numPending = $('<span id="num-pending">0</span>');
 $statusindicator.append($numPending);
 $statusindicator.append("<span> requests pending</span>");
 
-$('body').first().append($statusindicator);
-$statusindicator.hide(0);
+if(isEditingHomepage()) {
+    $('body').append($statusindicator);
+    $statusindicator.hide(0);
+}
 
 var queue = [];
 queue.busy = false;
