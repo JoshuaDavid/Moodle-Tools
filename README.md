@@ -77,3 +77,40 @@ This function clears ALL overrides in the gradebook.
 ## Collapse / Expand Sections
 Hides / shows all activities within all sections. Useful when moving sections around in the course, as it reduces 
 the need to scroll excessively.
+
+# Making Changes
+
+This program recursively walks through the directory of `concatjs.php` and adds all `.js` files it runs across. It then orders these files in such a way that all of their dependencies are met, then writes them out.
+
+To indicate to this script that a given file is required, use the following syntax:
+```javascript
+// Require: jquery.min.js
+// Require: UI/ContextMenu.js
+```
+
+Then simply write a JavaScript snippet that does what you want.
+
+To add a new button at the top of the screen, use the following syntax:
+```javascript
+// Require: jquery.min.js
+// Require: UI/FunctionButton.js
+
+var title = "What the button says on it";
+var action = function() {
+    // What you want to happen when the button is pressed
+};
+var visFn = function() {
+    // A function that says whether that button should be visible on that page
+    return true;
+}
+var options = {
+    // If you don't want the button to be clickable twice on the same page.
+    disableOnClick: true,
+}
+
+// Create the button
+var fnbtn = new FunctionButton(title, action, visFn, options);
+
+// and add it to the top menu (which is called TM)
+TM.add(fnbtn);
+```
