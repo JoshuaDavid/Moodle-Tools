@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteRule /?\.smartsheet_api_key\.txt$ - [F,L]

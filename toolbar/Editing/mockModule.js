@@ -28,9 +28,12 @@
 </li>
 */
 
+// File: mockModule.js
+
 // Because Moodle doesn't have a static location for images
 
-var rev = $('img').attr('src').match(/\d{10}/)[0];
+//var rev = $('img').attr('src').match(/\d{10}/)[0];
+var rev = $('img').attr('src'); 
 
 function mockEditingIcon(settings) {
     var action = settings.action;

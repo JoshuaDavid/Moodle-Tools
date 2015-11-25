@@ -12,9 +12,9 @@ TopMenu = function() {
         'height': '2em',
         'border-bottom': '1px solid black',
         'border-right': '1px solid black',
-        'position': 'fixed',
+        'position': 'absolute',
         'top': '0px',
-        'z-index': '1'
+        'z-index': 9999
     });
     $shim.css({
         'height': '2em',
