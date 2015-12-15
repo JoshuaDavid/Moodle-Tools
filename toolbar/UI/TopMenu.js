@@ -14,7 +14,7 @@ TopMenu = function() {
         'border-right': '1px solid black',
         'position': 'absolute',
         'top': '0px',
-        'z-index': 9999
+        'z-index': 9999 //May the force be with this code!
     });
     $shim.css({
         'height': '2em',
