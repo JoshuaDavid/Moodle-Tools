@@ -6,5 +6,6 @@ function getCourseId() {
    // the match function returns an array of string values
    // the second index is the int value that we need
     var courseid = window.location.href.match(/id=(\d+)/)[1];
+	console.log(window.location.href);
     return courseid;
 }
