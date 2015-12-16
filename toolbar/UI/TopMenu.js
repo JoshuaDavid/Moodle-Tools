@@ -50,12 +50,11 @@ TopMenu.prototype.add = function(cpt) {
 
     cpt.parent = tm;
 	
-	/*
     if
 		(tm.components.length) $(tm.el).show();
     else {}
-		$(tm.el).hide();
-	*/
+		//$(tm.el).hide();
+	
 
     return tm;
 }
