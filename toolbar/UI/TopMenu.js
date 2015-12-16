@@ -19,10 +19,15 @@ TopMenu = function() {
     $shim.css({
         'height': '2em',
     });
-    if(tm.components.length) $(tm.el).show();
-    else $(tm.el).hide();
-    $('body').prepend($topbar);
-    $('body').prepend($shim);
+    if(tm.components.length) 
+	{
+		$(tm.el).show();
+		$('body').prepend($topbar);
+    	$('body').prepend($shim);
+	}
+    else 
+		$(tm.el).hide();
+    
     return tm;
 }
 
