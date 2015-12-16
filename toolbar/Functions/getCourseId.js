@@ -7,10 +7,14 @@ function getCourseId() {
    // the second index is the int value that we need
    // console.log(window.location.href); //debug line
 
-   if(window.location.href.match(/id=(\d+)/) == null)
+    var courseid = window.location.href.match(/id=(\d+)/)[1];
+	
+	/*
+	if(window.location.href.match(/id=(\d+)/) == null)
 	   var coursid = "";
-   else
+    else
    	   var courseid = window.location.href.match(/id=(\d+)/)[1];
-
-   return courseid;
+	*/
+	
+    return courseid;
 }
