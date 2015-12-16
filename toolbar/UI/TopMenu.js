@@ -20,18 +20,18 @@ TopMenu = function() {
         'height': '2em',
     });
 	
-	/*	
+	/
 	//does nothing..
     if(tm.components.length) 
 	{
 		$(tm.el).show();
-		console.log("I'm showing the toolbar now");
+		//console.log("I'm showing the toolbar now");
 	}
     else 
 	{
 		$(tm.el).hide();
-		console.log("I'm hiding the toolbar now");
-	}*/
+		//console.log("I'm hiding the toolbar now");
+	}
 
     $('body').prepend($topbar);
     $('body').prepend($shim);
@@ -39,22 +39,24 @@ TopMenu = function() {
     return tm;
 }
 
+/*
 TopMenu.prototype.add = function(cpt) {
     var tm = this;
     tm.components.push(cpt);
-    if(cpt.el) {
-        $(tm.el).append(cpt.el);
-    } else {
-        $(tm.el).append(cpt);
-    }
+    
+	if(cpt.el)
+		$(tm.el).append(cpt.el);
+    else
+		$(tm.el).append(cpt);
+
     cpt.parent = tm;
-    if(tm.components.length) $(tm.el).show();
+	
+    if
+		(tm.components.length) $(tm.el).show();
     else 
-	{
 		$(tm.el).hide();
-		console.log("I'm hiding");
-	}
+
     return tm;
-}
+}*/
 
 TM = new TopMenu();
