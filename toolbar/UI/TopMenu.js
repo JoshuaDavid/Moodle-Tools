@@ -20,6 +20,7 @@ TopMenu = function() {
         'height': '2em',
     });
 	
+	/*	
     if(tm.components.length) 
 	{
 		$(tm.el).show();
@@ -29,7 +30,7 @@ TopMenu = function() {
 	{
 		$(tm.el).hide();
 		console.log("I'm hiding the toolbar now");
-	}
+	}*/
 
     $('body').prepend($topbar);
     $('body').prepend($shim);
