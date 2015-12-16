@@ -21,6 +21,7 @@ TopMenu = function() {
     });
 	
 	/*	
+	//does nothing..
     if(tm.components.length) 
 	{
 		$(tm.el).show();
@@ -48,7 +49,7 @@ TopMenu.prototype.add = function(cpt) {
     }
     cpt.parent = tm;
     if(tm.components.length) $(tm.el).show();
-    else $(tm.el).hide();
+    else //$(tm.el).hide();
     return tm;
 }
 
