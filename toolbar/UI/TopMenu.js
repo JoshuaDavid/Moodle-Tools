@@ -19,17 +19,18 @@ TopMenu = function() {
     $shim.css({
         'height': '2em',
     });
-	/*
+	
     if(tm.components.length) 
 	{
 		$(tm.el).show();
-		$('body').prepend($topbar);
-    	$('body').prepend($shim);
+		console.log("I'm showing the toolbar now");
 	}
     else 
+	{
 		$(tm.el).hide();
-	*/
-	
+		console.log("I'm hiding the toolbar now");
+	}
+
     $('body').prepend($topbar);
     $('body').prepend($shim);
 
