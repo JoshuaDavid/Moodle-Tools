@@ -39,7 +39,7 @@ TopMenu = function() {
     return tm;
 }
 
-/*
+
 TopMenu.prototype.add = function(cpt) {
     var tm = this;
     tm.components.push(cpt);
@@ -51,12 +51,14 @@ TopMenu.prototype.add = function(cpt) {
 
     cpt.parent = tm;
 	
+	/*
     if
 		(tm.components.length) $(tm.el).show();
     else 
 		$(tm.el).hide();
+	*/
 
     return tm;
-}*/
+}
 
 TM = new TopMenu();
