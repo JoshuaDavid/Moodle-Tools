@@ -41,6 +41,10 @@ TopMenu = function() {
 
 TopMenu.prototype.add = function(cpt) {
     var tm = this;
+	
+	console.log("Checking CPT: ", cpt);
+	console.log("hello", tm.components.length);	
+	
     tm.components.push(cpt);
     
 	console.log("Checking CPT: ", cpt);
