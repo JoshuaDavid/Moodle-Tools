@@ -50,8 +50,8 @@ TopMenu.prototype.add = function(cpt) {
 
     cpt.parent = tm;
 	
-	console.log(tm.components.length);	
-    if(tm.components.length) 
+	console.log("hello", tm.components.length);	
+    if(tm.components.length > 0) 
 		$(tm.el).show();
     else 
 	{
