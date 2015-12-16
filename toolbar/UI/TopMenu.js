@@ -20,7 +20,6 @@ TopMenu = function() {
         'height': '2em',
     });
 	
-	/
 	//does nothing..
     if(tm.components.length) 
 	{
@@ -54,7 +53,7 @@ TopMenu.prototype.add = function(cpt) {
 	/*
     if
 		(tm.components.length) $(tm.el).show();
-    else 
+    else {}
 		$(tm.el).hide();
 	*/
 
