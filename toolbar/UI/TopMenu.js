@@ -27,7 +27,10 @@ TopMenu = function() {
 	}
     else 
 		$(tm.el).hide();
-    
+
+    $('body').prepend($topbar);
+    $('body').prepend($shim);
+
     return tm;
 }
 
