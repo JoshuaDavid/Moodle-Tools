@@ -49,7 +49,11 @@ TopMenu.prototype.add = function(cpt) {
     }
     cpt.parent = tm;
     if(tm.components.length) $(tm.el).show();
-    else //$(tm.el).hide();
+    else 
+	{
+		$(tm.el).hide();
+		console.log("I'm hiding");
+	}
     return tm;
 }
 
