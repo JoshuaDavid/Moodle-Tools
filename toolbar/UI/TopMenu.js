@@ -41,15 +41,9 @@ TopMenu = function() {
 
 TopMenu.prototype.add = function(cpt) {
     var tm = this;
-	
-	console.log("Checking CPT: ", cpt);
-	console.log("hello", tm.components.length);	
-	
+
     tm.components.push(cpt);
     
-	console.log("Checking CPT: ", cpt);
-	console.log("hello", tm.components.length);	
-	
 	if(cpt.el)
 		$(tm.el).append(cpt.el);
     else
@@ -57,14 +51,10 @@ TopMenu.prototype.add = function(cpt) {
 
     cpt.parent = tm;
 	
-	console.log("hello", tm.components.length);	
     if(tm.components.length > 0) 
 		$(tm.el).show();
     else 
-	{
 		$(tm.el).hide();
-	}
-	
 
     return tm;
 }
