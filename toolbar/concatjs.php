@@ -5,10 +5,12 @@ header("Content-Type: text/javascript; charset=UTF-8");
 	//$id = $_GET['id'];
 
 
-	if(!empty($_GET['id'])) 
+	if(empty($_GET['id'])) 
 	{
-		echo("Hello");
+		return
 	}
+	else
+	{
 
 
 function ls_r_js($path) {
@@ -65,5 +67,6 @@ for($i = 0; $i < sizeof($scripts); $i++) {
     } else {
         $scripts[] = $script;
     }
+}
 }
 ?>
