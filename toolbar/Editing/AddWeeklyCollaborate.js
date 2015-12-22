@@ -104,7 +104,7 @@ function addWeeklyCollabs(settings) {
         $form.find('.hidden').removeClass('hidden');
         $form = createCollabForm($form, settings);
         var fd = new FormDialog("Add Weekly Collaborate", $form);
-        $form.find("#id_name").val("Session [[SESSIONNUM]] ([[DATE]])");
+        $form.find("#id_name").val("Week [[SESSIONNUM]] - Collaborate Session ([[DATE]])");
         $form.find('#id_cancel').click(function(e) {
             e.stopPropagation();
             e.preventDefault();
