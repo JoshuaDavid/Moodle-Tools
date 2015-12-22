@@ -47,6 +47,10 @@ TopMenu = function() {
 
 
 TopMenu.prototype.add = function(cpt) {
+	
+	if(window.location.href == null || window.location.href.match(/id=(\d+)/) == null)
+		return;
+	
     var tm = this;
 
     tm.components.push(cpt);
