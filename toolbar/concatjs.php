@@ -7,7 +7,7 @@ header("Content-Type: text/javascript; charset=UTF-8");
 
 	if(empty($_GET["id="])) 
 	{
-		return 0;
+
 	}
 
 
