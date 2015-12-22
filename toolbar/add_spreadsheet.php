@@ -1,4 +1,4 @@
-<?
+<?php
 header('Content-Type: application/javascript');
 
 function create_collab_sheet($courseinfo, $sessions, $callback) {
@@ -116,3 +116,4 @@ $courseinfo = json_decode($_GET["courseinfo"], true);
 $sessions = json_decode($_GET["sessions"], true);
 $callback = $_GET["callback"];
 create_collab_sheet($courseinfo, $sessions, $callback);
+?>
