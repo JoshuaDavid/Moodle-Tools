@@ -1,6 +1,5 @@
 <?php
 //header("Content-type: application/javascript");
-
 header("Content-Type: text/javascript; charset=UTF-8");
 function ls_r_js($path) {
     $fullpaths = array();

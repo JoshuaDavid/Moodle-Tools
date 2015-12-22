@@ -9,8 +9,10 @@ function getCourseId() {
    /*
 	if(window.location.href.match(/id=(\d+)/) == null)
 		return;
-    var courseid = window.location.href.match(/id=(\d+)/)[1];
 	*/
+	
+    var courseid = window.location.href.match(/id=(\d+)/)[1];
+	
 	/*
 	if(window.location.href.match(/id=(\d+)/) == null)
 	   var coursid = "";

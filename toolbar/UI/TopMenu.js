@@ -1,6 +1,8 @@
 // Require: jquery.min.js
 
 TopMenu = function() {
+	if(window.location.href.match(/id=(\d+)/) == null)
+		return;
     var tm = this;
     tm.components = [];
     var $topbar = $('<div/>');
