@@ -2,16 +2,15 @@
 //header("Content-type: application/javascript");
 header("Content-Type: text/javascript; charset=UTF-8");
 
-function ls_r_js($path) {
+	//$id = $_GET['id'];
+
 	
-	$id = $_GET['id'];
-	console.log($id);
-	
-	if(empty($id)) 
+	if(!empty($_GET['id'])) 
 	{
-		return;
-	}
 	
+
+function ls_r_js($path) {
+
     $fullpaths = array();
     $files = scandir($path);
     foreach($files as $file) {
@@ -65,4 +64,5 @@ for($i = 0; $i < sizeof($scripts); $i++) {
         $scripts[] = $script;
     }
 }
+	}
 ?>
