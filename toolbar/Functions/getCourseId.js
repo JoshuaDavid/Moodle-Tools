@@ -9,12 +9,12 @@ function getCourseId() {
 
     var courseid = window.location.href.match(/id=(\d+)/)[1];
 	
-	
+	/*
 	if(window.location.href.match(/id=(\d+)/) == null)
 	   var coursid = "";
     else
    	   var courseid = window.location.href.match(/id=(\d+)/)[1];
-	
+	*/
 	
     return courseid;
 }
