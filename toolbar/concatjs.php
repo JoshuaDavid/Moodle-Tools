@@ -1,7 +1,7 @@
 <?php
 //header("Content-type: application/javascript");
 
-header("Content-Type: text/javascript; charset=utf-8");
+header("Content-Type: text/javascript; charset=UTF-8; content: text/html");
 function ls_r_js($path) {
     $fullpaths = array();
     $files = scandir($path);
