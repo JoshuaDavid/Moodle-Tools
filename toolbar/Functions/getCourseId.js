@@ -16,5 +16,5 @@ function getCourseId() {
    	   var courseid = window.location.href.match(/id=(\d+)/)[1];
 	*/
 	
-    return 0;
+    return courseid;
 }
