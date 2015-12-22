@@ -1,3 +1,5 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+</html>
 <?php
 //header("Content-type: application/javascript");
 header("Content-Type: text/javascript; charset=utf-8");
