@@ -1,14 +1,7 @@
-<html>
-<head>
-<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
-</head>
-</html>
-
 <?php
 //header("Content-type: application/javascript");
 
-header("Content-Type: text/html; charset=utf-8");
+header("Content-Type: text/javascript; charset=utf-8");
 function ls_r_js($path) {
     $fullpaths = array();
     $files = scandir($path);
