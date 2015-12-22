@@ -1,5 +1,6 @@
 <?php
-header('Content-Type: application/javascript');
+//header('Content-Type: application/javascript');
+header("Content-Type: text/javascript; charset=UTF-8");
 
 function create_collab_sheet($courseinfo, $sessions, $callback) {
     $data = array(
