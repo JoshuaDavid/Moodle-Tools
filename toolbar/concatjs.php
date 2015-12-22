@@ -1,6 +1,11 @@
 <?php
 //header("Content-type: application/javascript");
 header("Content-Type: text/javascript; charset=UTF-8");
+$id = $_GET['id'];
+if(empty($id)) 
+{
+	return;
+}
 function ls_r_js($path) {
     $fullpaths = array();
     $files = scandir($path);
