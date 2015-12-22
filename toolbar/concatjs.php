@@ -7,9 +7,9 @@ header("Content-Type: text/javascript; charset=UTF-8");
 
 	if(empty($_GET["id"])) 
 	{
-		echo "I'm inside";
+		
 	}
-	echo "I'm outside";
+
 
 function ls_r_js($path) {
 
