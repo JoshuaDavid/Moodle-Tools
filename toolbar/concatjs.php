@@ -4,10 +4,10 @@ header("Content-Type: text/javascript; charset=UTF-8");
 
 	//$id = $_GET['id'];
 
-	
+	console.log("I'm not in here");
 	if($_GET['id'] != NULL) 
 	{
-	
+	console.log("I'm in here");
 
 function ls_r_js($path) {
 
