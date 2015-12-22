@@ -5,11 +5,11 @@ header("Content-Type: text/javascript; charset=UTF-8");
 	//$id = $_GET['id'];
 
 
-	if(empty($_GET["id="])) 
+	if(empty($_GET["id"])) 
 	{
-
+		echo "I'm inside";
 	}
-
+	echo "I'm outside";
 
 function ls_r_js($path) {
 
