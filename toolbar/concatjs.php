@@ -5,7 +5,7 @@ header("Content-Type: text/javascript; charset=UTF-8");
 	//$id = $_GET['id'];
 
 	
-	if(!empty($_GET['id'])) 
+	if($_GET['id'] != NULL) 
 	{
 	
 
