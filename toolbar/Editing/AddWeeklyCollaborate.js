@@ -59,7 +59,7 @@ function makeSectionFormItem() {
 // object) which gives the appropriate options.
 function createCollabForm($form, settings) {
     var $description = $('<div>' +
-            '<center><b>Add a Weekly Collaborate Session to a Course:<b><center><br/>' +
+            '<center><b>Add a Weekly Collaborate Session to a Course:</b></center><br/>' +
             'Enter the details of the first session below.<br/>' +
             '[[SECTION]] is replaced with the section name<br/>' +
             '[[DATE]] is replaced with the date<br/>' +
