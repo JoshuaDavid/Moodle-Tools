@@ -70,7 +70,7 @@ function createCollabForm($form, settings) {
             ' (or whatever the correct date is) automatically -- you don\'t have to' +
             ' enter the dates or section names yourself in the title.</center>' + 
 			'<br/><center><b>***Add [[DATE]] or [[SECTION]] if you need them***</center></b>' +
-			'<br/><br/><center><b>Current title: Week 1 - Collaborate Session ... Week 2 - Collaborate Session ... etc<b></center>' +
+			'<br/><center><b>Current title: Week 1 - Collaborate Session ... Week 2 - Collaborate Session ... etc<b></center>' +
             '</div>');
     $form.prepend($description);
     $form.find('input[name="section"]').remove();
