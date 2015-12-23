@@ -73,7 +73,7 @@ function createCollabForm($form, settings) {
 			'<hr><center><b>Current title: Week 1 - Collaborate Session ... Week 2 - Collaborate Session ... etc<b></center><br/><hr>' +
             '</div>');
     $form.prepend($description);
-    $form.find('<center>input[name="section"]</center>').remove();
+    $form.find('input[name="section"]').remove();
     var $sectionselect = makeSectionFormItem();
     var $numweeks = makeNumberFormItem("Number_of_Sessions");
     $form.find("#id_general .fcontainer").append($sectionselect);
