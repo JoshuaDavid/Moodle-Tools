@@ -59,17 +59,17 @@ function makeSectionFormItem() {
 // object) which gives the appropriate options.
 function createCollabForm($form, settings) {
     var $description = $('<div>' +
-            '<center><b>Add a Weekly Collaborate Session to a Course:</b></center><br/>' +
+            '<center><b>Add a Weekly Collaborate Session to a Course:</b></center><hr>' +
             '<center>Enter the details of the first session below.<br/></center>' +
             '<center>[[SECTION]] is replaced with the section name<br/></center>' +
             '<center>[[DATE]] is replaced with the date<br/></center>' +
             '<center>[[SESSIONNUM]] is replaced with the session number (e.g. ' + 
-            '"Week [[SESSIONNUM]] Session" becomes "Week 1 Session", "Week 2 Session", etc.)</center><br/>' +
+            '"Week [[SESSIONNUM]] Session" becomes "Week 1 Session", "Week 2 Session", etc.)</center><hr>' +
             '<center><b>Session for [[SECTION]] ([[DATE]])</b> would become </center>' +
             '<center><b>Session for Topic 1 (Tuesday, September 2, 2:15pm)</b>' +
-            ' (or whatever the correct date is) automatically -- you don\'t have to' +
-            ' enter the dates or section names yourself in the title.</center>' + 
-			'<br/><center><b>***Add [[DATE]] or [[SECTION]] if you need them***</center></b>' +
+            ' (or whatever the correct date is) automatically -- you don\'t have to' + 
+			' enter the dates or section names yourself in the title.</center>' + 
+			'<hr><center><b>***Add [[DATE]] or [[SECTION]] if you need them***</center></b>' +
 			'<hr><center><b>Current title: Week 1 - Collaborate Session ... Week 2 - Collaborate Session ... etc<b></center><br/>' +
             '</div>');
     $form.prepend($description);
