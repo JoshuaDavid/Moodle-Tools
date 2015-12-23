@@ -68,7 +68,7 @@ function createCollabForm($form, settings) {
             '<b>Session for [[SECTION]] ([[DATE]])</b> would become ' +
             '<b>Session for Topic 1 (Tuesday, September 2, 2:15pm)</b>' +
             ' (or whatever the correct date is) automatically -- you don\'t have to' +
-            ' enter the dates or section names yourself in the title.' + '<br/><b>Remove ([[DATE]]) if you do not need it' +
+            ' enter the dates or section names yourself in the title.' + '<br/><b>Add ([[DATE]]) or [[SECTION]] if you need it them' +
             '</div>');
     $form.prepend($description);
     $form.find('input[name="section"]').remove();
@@ -104,7 +104,7 @@ function addWeeklyCollabs(settings) {
         $form.find('.hidden').removeClass('hidden');
         $form = createCollabForm($form, settings);
         var fd = new FormDialog("Add Weekly Collaborate", $form);
-        $form.find("#id_name").val("Week [[SESSIONNUM]] - Collaborate Session ([[DATE]])");
+        $form.find("#id_name").val("Week [[SESSIONNUM]] - Collaborate Session");
         $form.find('#id_cancel').click(function(e) {
             e.stopPropagation();
             e.preventDefault();
