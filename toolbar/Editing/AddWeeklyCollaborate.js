@@ -68,7 +68,7 @@ function createCollabForm($form, settings) {
             '<b>Session for [[SECTION]] ([[DATE]])</b> would become ' +
             '<b>Session for Topic 1 (Tuesday, September 2, 2:15pm)</b>' +
             ' (or whatever the correct date is) automatically -- you don\'t have to' +
-            ' enter the dates or section names yourself in the title.' + '<b><b> Remove ([[DATE]]) if you do not need it' +
+            ' enter the dates or section names yourself in the title.' + '<br/><b>Remove ([[DATE]]) if you do not need it' +
             '</div>');
     $form.prepend($description);
     $form.find('input[name="section"]').remove();
