@@ -51,6 +51,8 @@ function makeSectionFormItem() {
     $labelholder.append($label);
     $outer.append($labelholder);
     $outer.append($inputholder);
+	//Testing something
+	$outer.append($inputholder);
     return $outer;
 }
 
