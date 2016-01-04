@@ -6,6 +6,7 @@ header("Content-Type: text/javascript; charset=UTF-8");
 	if($_GET['notifyeditingon'] != 1)
 		return;
 	*/
+	
 function ls_r_js($path) {
 
     $fullpaths = array();
