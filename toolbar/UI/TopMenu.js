@@ -5,7 +5,7 @@ TopMenu = function() {
 	 This eliminated the bug in firefox pooping out code in the html code
  	*/
 	
-	if(window.location.href == null || window.location.href.match(/id=(\d+)/) == null)
+	if(window.location.href == null || window.location.href.match(/id=(\d+)/) == null || window.location.href.match(/notifyeditingon=(\d+)/) == null)
 		return;
 	/*else continue buildin the toolbar*/
 	
