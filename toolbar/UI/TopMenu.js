@@ -4,9 +4,14 @@ TopMenu = function() {
 	/*if there is no session id, just stop the toolbar.
 	 This eliminated the bug in firefox pooping out code in the html code
  	*/
-	
+	/*
 	if(window.location.href == null || window.location.href.match(/id=(\d+)/) == null || window.location.href.match(/notifyeditingon=(\d+)/) == null)
 		return;
+	*/
+	
+	if(window.location.href == null || window.location.href.match(/id=(\d+)/) == null)
+		return;
+	
 	/*else continue buildin the toolbar*/
 	
     var tm = this;
