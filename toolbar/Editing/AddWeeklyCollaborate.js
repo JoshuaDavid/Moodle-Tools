@@ -14,7 +14,7 @@ TM.add(weeklyCollabBtn);
 
 function getSections() {
     var sections = [];
-    ('.sectionname').each(function() {
+    $('sectionname').each(function() {
         var section = $(this).parentsUntil('ul.topics, ul.weeks').last().attr('id').match(/section-(\d+)/)[1];
         var name = $(this).text();
         sections.push({section:section, name:name});
