@@ -12,6 +12,8 @@ var options = {
 var weeklyCollabBtn = new FunctionButton(title, action, visFn, options);
 TM.add(weeklyCollabBtn);
 
+
+/*code added from stackoverflow
 function getSections() {
   return (function($) {
     return $('.sectionname').map(function() {
@@ -20,9 +22,9 @@ function getSections() {
       return {section:section, name:name};
     }).get();
   })(jQuery);
-}
+}*/
 
-/* original code for getSections()
+//original code for getSections()
 function getSections() {
     var sections = [];
     $('.sectionname').each(function() {
@@ -31,7 +33,7 @@ function getSections() {
         sections.push({section:section, name:name});
     })(jQuery);
     return sections;
-}*/
+}
 
 function makeNumberFormItem(name) {
     var $outer = $('<div id="fitem_id_' + name + '" class="fitem required fitem_fselect"/>');
