@@ -14,13 +14,13 @@ TM.add(weeklyCollabBtn);
 
 function getSections() {
     var sections = [];
-    $('.sectionname').each(function() {
+    $(document).ready(('.sectionname').each(function() {
         var section = $(this).parentsUntil('ul.topics, ul.weeks').last().attr('id').match(/section-(\d+)/)[1];
         var name = $(this).text();
         sections.push({section:section, name:name});
-    })(JQuery);
+    }));
     return sections;
-};
+}
 
 function makeNumberFormItem(name) {
     var $outer = $('<div id="fitem_id_' + name + '" class="fitem required fitem_fselect"/>');
