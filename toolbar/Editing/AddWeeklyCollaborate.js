@@ -3,13 +3,6 @@
 // Require: Functions/isEditingHomepage.js
 // Require: UI/FormDialog.js
 
-
-//new code added by simon grigorian
-var script = document.createElement('script');
-script.src = 'http://code.jquery.com/jquery-2.1.4.min.js';
-script.type = 'text/javascript';
-document.getElementsByTagName('head')[0].appendChild(script);
-
 var title = "Add Weekly Collaborate";
 var action = addWeeklyCollabs;
 var visFn = isEditingHomepage;
