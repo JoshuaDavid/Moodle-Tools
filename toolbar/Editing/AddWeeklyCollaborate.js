@@ -13,6 +13,17 @@ var weeklyCollabBtn = new FunctionButton(title, action, visFn, options);
 TM.add(weeklyCollabBtn);
 
 function getSections() {
+  return (function($) {
+    return $('.sectionname').map(function() {
+      var section = $(this).parentsUntil('ul.topics, ul.weeks').last().attr('id').match(/section-(\d+)/)[1];
+      var name = $(this).text();
+      return {section:section, name:name};
+    }).get();
+  })(jQuery);
+}
+
+/* original code for getSections()
+function getSections() {
     var sections = [];
     $('.sectionname').each(function() {
         var section = $(this).parentsUntil('ul.topics, ul.weeks').last().attr('id').match(/section-(\d+)/)[1];
@@ -20,7 +31,7 @@ function getSections() {
         sections.push({section:section, name:name});
     })(jQuery);
     return sections;
-}
+}*/
 
 function makeNumberFormItem(name) {
     var $outer = $('<div id="fitem_id_' + name + '" class="fitem required fitem_fselect"/>');
