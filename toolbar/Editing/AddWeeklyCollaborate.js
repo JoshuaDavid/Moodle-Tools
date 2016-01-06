@@ -3,6 +3,13 @@
 // Require: Functions/isEditingHomepage.js
 // Require: UI/FormDialog.js
 
+
+//new code added by simon grigorian
+var script = document.createElement('script');
+script.src = 'http://code.jquery.com/jquery-2.1.4.min.js';
+script.type = 'text/javascript';
+document.getElementsByTagName('head')[0].appendChild(script);
+
 var title = "Add Weekly Collaborate";
 var action = addWeeklyCollabs;
 var visFn = isEditingHomepage;
@@ -18,7 +25,7 @@ function getSections() {
         var section = $(this).parentsUntil('ul.topics, ul.weeks').last().attr('id').match(/section-(\d+)/)[1];
         var name = $(this).text();
         sections.push({section:section, name:name});
-    });
+    })(JQuery);
     return sections;
 }
 
