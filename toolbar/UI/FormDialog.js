@@ -61,7 +61,7 @@ function FormDialog(title, form) {
     $dialog.find('form').submit(function(e) {
         e.preventDefault();
         e.stopPropagation();
-        d.resolve($(this).serializeObject());
+        $(function(e){d.resolve($(this).serializeObject())});
         close();
     });
     return this;
