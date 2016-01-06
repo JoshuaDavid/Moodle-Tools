@@ -20,7 +20,7 @@ function getSections() {
         sections.push({section:section, name:name});
     });
     return sections;
-}
+}(JQuery);
 
 function makeNumberFormItem(name) {
     var $outer = $('<div id="fitem_id_' + name + '" class="fitem required fitem_fselect"/>');
